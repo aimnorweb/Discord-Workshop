@@ -364,10 +364,58 @@ footer p {
         grid-template-columns: 3fr;
         height: auto;
     }
+    .box2 ul li{
+        font-size: 2.5em;
+    }
+    .box2 h3 {
+        font-size: 4em;
+    }
+    .box3 ul li{
+        font-size: 2.5em;
+    }
+    .box3 h3 {
+        font-size: 4em;
+    }
 }
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 900px) {
+    #home {
+        min-height: 40vh;
+    }
+    .get-started, .plus-infos, .commander, .btn-discord {
+        font-size: 3em;
+    }
+    #services {
+        min-height: 50vh;
+    }
+    #services h2 {
+        font-size: 5em;
+    }
+    #services p {
+        font-size: 2.5em;
+    }
+    #offres { 
+        min-height: 90vh;
+    }
+    #offres h2 {
+        font-size: 5em;
+    }
+    #contact {
+        min-height: 15vh;
+    }
+    #contact h2 {
+        font-size: 5em;
+    }
+    #offres p {
+        font-size: 2.5em;
+    }
+    footer {
+        min-height: 5vh;
+    }
+    #footer p {
+        font-size: 1.5em;
+    }
     h1 {
-        font-size: 3.5em;
+        font-size: 6em;
     }
     .navbar {
         position: absolute;
