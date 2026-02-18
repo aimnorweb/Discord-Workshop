@@ -91,6 +91,19 @@
             <p class="reveal"> Venez vous joindre à la communauté qui transformera vos sites et serveurs un chef d'oeuvres !</p>
             <a href="https://discord.gg/GHArER67fr" target="_blank" class="reveal btn-discord"><i class="fab fa-discord"></i> Rejoindre maintenant <i class="fas fa-arrow-right"></i></a>
         </section>
+        <section id="avis">
+            <h2 class=reveal>Votre avis</h2>
+            <div class="avis-container">
+                <div class="stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+            <textarea placeholder="Écrivez votre avis ici..."></textarea>
+            <button class="btn-avis">Envoyer</button>
+        </section>
         <footer>
             <p><i class="far fa-copyright"></i> 2026 Workshop. Tous droits réservés. | Created by</p> <a href="https://discord.com/users/1085264537139294270" target="_blank" class="aimnor">Aimnor</a>
         </footer>
@@ -126,5 +139,45 @@
         }
 
         window.addEventListener('scroll', revealOnScroll);
+    </script>
+    <script>
+        const webhookURL = "COLLE_TON_WEBHOOK_ICI";
+        const stars = document.querySelectorAll(".stars i");
+
+        stars.forEach((star, index) => {
+            star.addEventListener("click", () => {
+                stars.forEach((s, i) => {
+                s.style.color = i <= index ? "#008000" : "#ccc";
+                 });
+            });
+        });
+        if (!avis) {
+            alert("Écris un avis !");
+            return;
+        }
+        await fetch(webhookURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                embeds: [{
+                    title: "⭐ Nouvel avis client",
+                    color: 5763719,
+                    fields: [
+                        {
+                            name: "Note",
+                            value: `${rating}/5`,
+                            inline: true
+                        },
+                        {
+                            name: "Message",
+                            value: avis
+                        }
+                    ],
+                    timestamp: new Date()
+                }]
+            })
+        });
     </script>
 </html>

@@ -211,16 +211,16 @@ section {
     margin: 50px;
     gap: 20px;
     border-radius: 20px;
-    border: 0.3px solid #5fff50;
+    border: 0.3px solid #00b800;
     display: flex;
     justify-content: center;  
     align-items: center;
     flex-direction: column; 
-    box-shadow: 0 0 6px #5fff50;   
+    box-shadow: 0 0 6px #00b800;   
 }
 .box2:hover {
     transform: translateY(4px);
-    box-shadow: 0 0 8px #5fff50;
+    box-shadow: 0 0 8px #00b800;
 }
 .box2 h3 {
     color: #003404;
@@ -234,7 +234,7 @@ section {
     margin: 15px;
 }
 .box3 {
-    background : #b3ccff;
+    background : #d5e4ff;
     padding: 20px;
     margin: 50px;
     gap: 20px;
@@ -359,6 +359,71 @@ footer p {
     opacity: 1;
     transform: translateY(0);
 }
+#avis {
+    background: #ccffc4;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 0.2px solid rgba(128, 128, 128, 0.479);
+}
+
+#avis h2 {
+    font-size: 2.3em;
+    margin-bottom: 40px;
+    color: #003404;
+}
+
+.avis-container {
+    background: #e9ffe4;
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 15px #0080009d;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.8em;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.stars i:hover {
+    color: #008000;
+}
+
+textarea {
+    resize: none;
+    height: 120px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-avis {
+    font-family: 'Montserrat', sans-serif;
+    padding: 15px;
+    font-weight: bold;
+    background: #008000;
+    border: none;
+    border-radius: 10px;
+    color: black;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-avis:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px #008000;
+}
 @media screen and (max-width: 900px) {
 
     /* NAVBAR */
@@ -376,7 +441,8 @@ footer p {
         top: 60px;
         right: 20px;
         background: #e9ffe4;
-        border-radius: 15px;
+        border: 0.9 solid grey;
+        box-shadow: 0 0 6px grey;
         padding: 20px;
         margin-right: -200%;
         transition: 0.3s ease;
