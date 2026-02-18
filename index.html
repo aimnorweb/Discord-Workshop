@@ -91,7 +91,7 @@
             <p class="reveal"> Venez vous joindre à la communauté qui transformera vos sites et serveurs un chef d'oeuvres !</p>
             <a href="https://discord.gg/GHArER67fr" target="_blank" class="reveal btn-discord"><i class="fab fa-discord"></i> Rejoindre maintenant <i class="fas fa-arrow-right"></i></a>
         </section>
-        <section id="avis">
+        <section id="avist">
             <h2 class=reveal>Votre avis</h2>
             <div class="avis-container">
                 <div class="stars">
@@ -101,8 +101,8 @@
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
             </div>
-            <textarea placeholder="Écrivez votre avis ici..."></textarea>
-            <button class="btn-avis">Envoyer</button>
+            <textarea id="avis" class="avis" placeholder="Écrivez votre avis ici..."></textarea>
+            <button id="submit" class="btn-avis">Envoyer</button>
         </section>
         <footer>
             <p><i class="far fa-copyright"></i> 2026 Workshop. Tous droits réservés. | Created by</p> <a href="https://discord.com/users/1085264537139294270" target="_blank" class="aimnor">Aimnor</a>
@@ -141,43 +141,52 @@
         window.addEventListener('scroll', revealOnScroll);
     </script>
     <script>
-        const webhookURL = "COLLE_TON_WEBHOOK_ICI";
-        const stars = document.querySelectorAll(".stars i");
-
-        stars.forEach((star, index) => {
-            star.addEventListener("click", () => {
-                stars.forEach((s, i) => {
-                s.style.color = i <= index ? "#008000" : "#ccc";
-                 });
-            });
+         const stars = document.querySelectorAll(".stars i");
+      let rating = 0;
+    
+      stars.forEach((star, index) => {
+        star.addEventListener("click", () => {
+          rating = index + 1;
+          stars.forEach((s, i) => {
+            s.style.color = i < rating ? "#008000" : "#ccc";
+          });
         });
+      });
+    
+      
+      document.getElementById("submit").addEventListener("click", async () => {
+        const avis = document.getElementById("avis").value.trim();
         if (!avis) {
-            alert("Écris un avis !");
-            return;
+          alert("Écris un avis !");
+          return;
         }
-        await fetch(webhookURL, {
+    
+        const webhookURL = "https://discord.com/api/webhooks/1473759154291347700/1XlzzCjngGeJpm2l3c6CJHOK9Dj_QdnX2aU585J0BtxKqB0n_2wZ4eivVyQK3kQUjNua";
+    
+        try {
+          await fetch(webhookURL, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                embeds: [{
-                    title: "⭐ Nouvel avis client",
-                    color: 5763719,
-                    fields: [
-                        {
-                            name: "Note",
-                            value: `${rating}/5`,
-                            inline: true
-                        },
-                        {
-                            name: "Message",
-                            value: avis
-                        }
-                    ],
-                    timestamp: new Date()
-                }]
+              embeds: [{
+                title: "⭐ Nouvel avis client",
+                color: 5763719,
+                fields: [
+                  { name: "Note", value: `${rating}/5`, inline: true },
+                  { name: "Message", value: avis }
+                ],
+                timestamp: new Date()
+              }]
             })
-        });
+          });
+          alert("Avis envoyé !");
+          document.getElementById("avis").value = "";
+          stars.forEach(s => s.style.color = "#ccc");
+          rating = 0;
+        } catch (err) {
+          alert("Erreur lors de l'envoi !");
+          console.error(err);
+        }
+      });
     </script>
 </html>

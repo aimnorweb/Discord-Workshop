@@ -359,7 +359,7 @@ footer p {
     opacity: 1;
     transform: translateY(0);
 }
-#avis {
+#avist {
     background: #ccffc4;
     padding: 80px 20px;
     display: flex;
@@ -368,7 +368,7 @@ footer p {
     border-bottom: 0.2px solid rgba(128, 128, 128, 0.479);
 }
 
-#avis h2 {
+#avist h2 {
     font-size: 2.3em;
     margin-bottom: 40px;
     color: #003404;
