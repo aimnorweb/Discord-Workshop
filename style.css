@@ -288,7 +288,11 @@ section {
     align-items: center;
     margin: 20px;
 }
+#contact p{
+    text-align: center;
+}
 .btn-discord {
+    text-align: center;
     margin-top: 40px;
     padding: 17px;
     font-size: 1.5em;
@@ -304,6 +308,7 @@ section {
     box-shadow: 1px 2px 5px #008000;
 }
 footer {
+    padding: 20px;
     display: flex;
     min-height: 20vh;
     justify-content: center;
@@ -354,98 +359,138 @@ footer p {
     opacity: 1;
     transform: translateY(0);
 }
-@media screen and (max-width: 1070px) {
-    .container {
-        grid-template-columns: 2fr;
-    }
-}
-@media screen and (max-width: 1186px) {
-    .container2 {
-        grid-template-columns: 3fr;
-        height: auto;
-    }
-    .box2 ul li{
-        font-size: 2.5em;
-    }
-    .box2 h3 {
-        font-size: 4em;
-    }
-    .box3 ul li{
-        font-size: 2.5em;
-    }
-    .box3 h3 {
-        font-size: 4em;
-    }
-}
 @media screen and (max-width: 900px) {
-    #home {
-        min-height: 40vh;
+
+    /* NAVBAR */
+    .navbar {
+        padding: 15px 20px;
     }
-    .get-started, .plus-infos, .commander, .btn-discord {
-        font-size: 3em;
-    }
-    #services {
-        min-height: 50vh;
-    }
-    #services h2 {
-        font-size: 5em;
-    }
-    #services p {
-        font-size: 2.5em;
-    }
-    #offres { 
-        min-height: 90vh;
-    }
-    #offres h2 {
-        font-size: 5em;
-    }
-    #contact {
-        min-height: 15vh;
-    }
-    #contact h2 {
-        font-size: 5em;
-    }
-    #offres p {
-        font-size: 2.5em;
-    }
-    footer {
-        min-height: 5vh;
-    }
-    #footer p {
+
+    .logo {
+        margin-left: 0;
         font-size: 1.5em;
     }
-    h1 {
-        font-size: 6em;
-    }
-    .navbar {
-        position: absolute;
-    }
+
     .nav-links {
         position: absolute;
         top: 60px;
-        right: 12px;
-        background-color: #e9ffe4b4;
-        border: 0.9px solid grey;
-        box-shadow: 0 0 6px grey;
+        right: 20px;
+        background: #e9ffe4;
+        border-radius: 15px;
         padding: 20px;
-        margin-right: -100%;
-        transition: all 0.3s ease;
+        margin-right: -200%;
+        transition: 0.3s ease;
     }
-    .mobile-menu {
-        margin-right: 12px
-}
-    .nav-links ul {
-        display: flex;
-        flex-direction: column;
+
+    .nav-links.mobile-menu {
         margin-right: 0;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
     }
+
+    .nav-links ul {
+        flex-direction: column;
+        gap: 20px;
+    }
+
     .burger {
         display: flex;
     }
     .bar {
         display: block;
+    }
+    /* HOME SECTION */
+    #home {
+        padding: 120px 20px 60px;
+        text-align: center;
+        align-items: center;
+        min-height: auto;
+    }
+    .home-content {
+        display: flex;
+        flex-direction: column;
+    }
+    .home-content h1 {
+        position: static;
+        font-size: 2em;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+    .get-started,
+    .plus-infos {
+        position: static;
+        width: 100%;
+        margin: 10px 0;
+        font-size: 1em;
+    }
+
+    /* SERVICES */
+    #services {
+        padding: 40px 20px;
+        min-height: auto;
+    }
+
+    #services h2 {
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .box {
+        margin: 20px 0;
+    }
+
+    /* OFFRES */
+    #offres {
+        min-height: auto;
+        padding: 40px 20px;
+    }
+
+    #offres h2 {
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .container2 {
+        grid-template-columns: 1fr;
+    }
+
+    .box2,
+    .box3 {
+        margin: 20px 0;
+    }
+
+    .box2 h3,
+    .box3 h3 {
+        font-size: 1.5em;
+    }
+
+    .box2 ul li,
+    .box3 ul li {
+        font-size: 1em;
+    }
+
+    /* CONTACT */
+    #contact {
+        min-height: auto;
+        padding: 40px 20px;
+    }
+
+    #contact h2 {
+        font-size: 2em;
+        text-align: center;
+    }
+    .btn-discord {
+        width: 100%;
+        font-size: 1em;
+    }
+
+    /* FOOTER */
+    footer {
+        min-height: auto;
+        text-align: center;
+        padding: 20px;
     }
 }
