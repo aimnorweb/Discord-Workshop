@@ -68,6 +68,9 @@ header {
     color: black;
     text-shadow: none;
 }
+.navbar .nav-links ul li:last-child {
+    margin-left: auto;
+}
 section {
     background: #ccffc4;
     width: 100%;
@@ -438,8 +441,6 @@ textarea {
     background-color: rgba(128, 128, 128, 0.486);
 }
 @media screen and (max-width: 900px) {
-
-    /* NAVBAR */
     .navbar {
         padding: 15px 20px;
     }
@@ -454,7 +455,7 @@ textarea {
         top: 60px;
         right: 20px;
         background: #e9ffe4;
-        border: 0.9 solid grey;
+        border: 1 solid grey;
         box-shadow: 0 0 6px grey;
         padding: 20px;
         margin-right: -200%;
@@ -463,13 +464,12 @@ textarea {
 
     .nav-links.mobile-menu {
         margin-right: 0;
+        justify-content: center;
     }
-
     .nav-links ul {
         flex-direction: column;
         gap: 20px;
     }
-
     .burger {
         display: flex;
     }

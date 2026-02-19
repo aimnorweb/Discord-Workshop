@@ -190,90 +190,84 @@
       });
     </script>
     <script>
-        const CLIENT_ID = "1474022565939777536";
-        const REDIRECT_URI = "https://aimnorweb.github.io/Discord-Workshop/";
-        const SCOPES = "identify guilds";
-        const TON_GUILD_ID = "1470534484905558048";
-        
-        const content = document.getElementById("content");
-        function login() {
-            const url =
-                `https://discord.com/api/oauth2/authorize` +
-                `?client_id=${CLIENT_ID}` +
-                `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
-                `&response_type=token` +
-                `&scope=${SCOPES}`;
-            window.location.href = url;
-        }
-        function checkLogin(token) {
-        
-            fetch("https://discord.com/api/users/@me", {
+    const CLIENT_ID = "1474022565939777536";
+    const REDIRECT_URI = "https://aimnorweb.github.io/Discord-Workshop/";
+    const SCOPES = "identify guilds";
+    const TON_GUILD_ID = "1470534484905558048";
+    
+    const loginbtn = document.getElementById("login");
+    const content = document.getElementById("content");
+    
+    // Fonction pour changer le texte du bouton
+    function updateLoginButton(isLoggedIn) {
+        loginbtn.textContent = isLoggedIn ? "Déconnexion" : "Se connecter";
+    }
+    
+    // Fonction pour lancer OAuth Discord
+    function login() {
+        const url =
+            `https://discord.com/api/oauth2/authorize` +
+            `?client_id=${CLIENT_ID}` +
+            `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+            `&response_type=token` +
+            `&scope=${SCOPES}`;
+        window.location.href = url;
+    }
+    
+    // Vérifie si l'utilisateur est connecté et affiche ses infos
+    async function checkLogin(token) {
+        try {
+            const resUser = await fetch("https://discord.com/api/users/@me", {
                 headers: { Authorization: `Bearer ${token}` }
-            })
-            .then(res => res.json())
-            .then(user => {
-        
-                fetch("https://discord.com/api/users/@me/guilds", {
-                    headers: { Authorization: `Bearer ${token}` }
-                })
-                .then(res => res.json())
-                .then(guilds => {
-        
-                    const estDansServeur = guilds.some(g => g.id === TON_GUILD_ID);
-        
-                    content.innerHTML = `
-                        <p>Connecté : ${user.username}</p>
-                        <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80"><br><br>
-                        <p>Dans le serveur : ${estDansServeur ? "Oui" : "Non"}</p>
-                    `;
-        
-                    if (estDansServeur) {
-                    content.innerHTML += `<button id="logout">Déconnexion</button>`;
-                    }
-                    document.getElementById("logout").onclick = () => {
-                        localStorage.removeItem("discord_token");
-                        location.reload();
-                    };
-                });
-            })
-            .catch(() => {
-                localStorage.removeItem("discord_token");
-                location.reload();
             });
-        }
-        if (window.location.hash) {
-            const params = new URLSearchParams(window.location.hash.replace("#", "?"));
-            const token = params.get("access_token");
-        
-            if (token) {
-                localStorage.setItem("discord_token", token);
-                window.history.replaceState({}, document.title, REDIRECT_URI);
+            const user = await resUser.json();
+    
+            const resGuilds = await fetch("https://discord.com/api/users/@me/guilds", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const guilds = await resGuilds.json();
+    
+            const estDansServeur = guilds.some(g => g.id === TON_GUILD_ID);
+    
+            content.innerHTML = `
+                <p>Connecté : ${user.username}</p>
+                <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80"><br><br>
+                <p>Dans le serveur : ${estDansServeur ? "Oui" : "Non"}</p>
+            `;
+    
+            updateLoginButton(true);
+    
+            // Bouton Déconnexion
+            if (estDansServeur) {
+                content.innerHTML += `<button id="logout">Déconnexion</button>`;
+                document.getElementById("logout").onclick = () => {
+                    localStorage.removeItem("discord_token");
+                    updateLoginButton(false);
+                    location.reload();
+                };
             }
+        } catch (err) {
+            console.error(err);
+            localStorage.removeItem("discord_token");
+            updateLoginButton(false);
         }
-        const savedToken = localStorage.getItem("discord_token");
-        
-        if (savedToken) {
-            checkLogin(savedToken);
-        } else {
-            document.getElementById("login").onclick = login;
+    }
+    if (window.location.hash) {
+        const params = new URLSearchParams(window.location.hash.replace("#", "?"));
+        const token = params.get("access_token");
+    
+        if (token) {
+            localStorage.setItem("discord_token", token);
+            window.history.replaceState({}, document.title, REDIRECT_URI);
         }
-    </script>
-    <script>
-        let isConnected = false; 
-
-         const loginbtn = document.getElementById('login');
-
-        loginBtn.addEventListener('click', () => {
-          if (!isConnected) {
-            // Processus de connexion
-            isConnected = true;
-            loginBtn.textContent = "Déconnexion"; // Change le texte
-          } else {
-            // Processus de déconnexion
-            isConnected = false;
-            loginBtn.textContent = "Se connecter"; // Reviens à se connecter
-          }
-        });
+    }
+    const savedToken = localStorage.getItem("discord_token");
+    
+    if (savedToken) {
+        checkLogin(savedToken);
+    } else {
+        updateLoginButton(false);
+        loginbtn.onclick = login;
+    }
     </script>
 </html>
-        
