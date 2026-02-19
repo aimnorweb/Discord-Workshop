@@ -53,6 +53,7 @@ header {
 .navbar .nav-links ul {
     font-size: 1.2em;
     display: flex;
+    align-items: center;
     gap: 30px;
     margin-right: 70px;
 }
@@ -431,13 +432,14 @@ textarea {
 #login {
     padding: 10px;
     font-size: 1em;
-    color: #000;
+    color: grey;
     background-color: #e9ffe4;
     border-radius: 100px;
     border: 0.3px solid grey;
     box-shadow: 0 0 6px grey;
 }
 #login:hover {
+    color: #000;
     background-color: rgba(128, 128, 128, 0.486);
 }
 @media screen and (max-width: 900px) {
