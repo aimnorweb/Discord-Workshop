@@ -35,8 +35,7 @@
                 <a href="https://discord.gg/GHArER67fr" target="_blank" class="get-started">Commencer dès maintenant  <i class="fas fa-rocket"></i></a>
                 <a href="#services" class="plus-infos"><i class="fas fa-info-circle"></i> Plus d'infos ?</a>
             </div>
-            <div id="content">   
-            </div>
+            <div id="content"></div>
         </section>
         <section id="services">
             <h2 class="reveal">Nos Services</h2>
@@ -230,10 +229,12 @@
             const guilds = await resGuilds.json();
     
             const estDansServeur = guilds.some(g => g.id === TON_GUILD_ID);
+            const extension = user.banner.startsWith("a_") ? "gif" : "png";
     
             content.innerHTML = `
+                <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.banner}.${extension}" width="240">
+                <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}" width="80">
                 <p>Connecté : ${user.username}</p>
-                <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80"><br><br>
                 <p>Dans le serveur : ${estDansServeur ? "Oui" : "Non"}</p>
             `;
     
