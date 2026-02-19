@@ -232,7 +232,7 @@
             const extension = user.banner.startsWith("a_") ? "gif" : "png";
     
             content.innerHTML = `
-                <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.banner}.${extension}" width="240">
+                <img src="https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${extension}" width="240"><br>
                 <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}" width="80">
                 <p>Connecté : ${user.username}</p>
                 <p>Dans le serveur : ${estDansServeur ? "Oui" : "Non"}</p>
