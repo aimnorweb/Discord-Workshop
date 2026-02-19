@@ -267,5 +267,19 @@
             document.getElementById("login").onclick = login;
         }
     </script>
+    <script>
+        let isConnected = false; // État initial
+
+         const loginbtn = document.getElementById('login');
+
+        loginbtn.addEventListener('click', () => {
+            isConnected = true; 
+
+            if (isConnected) {
+                loginBtn.textContent = "Connecté"; // Changer le texte du bouton
+                loginBtn.disabled = true; // Optionnel : désactiver le bouton
+            }
+        });
+    </script>
 </html>
         
