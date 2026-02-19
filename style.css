@@ -129,8 +129,10 @@ section {
 #content {
     background-color: #9eff90;
     border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
     position: absolute;
-    right: 20px;
+    right: 200px;
     top: 200px;
 }
 #services {
