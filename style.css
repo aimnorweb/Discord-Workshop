@@ -60,10 +60,11 @@ header {
     display: flex;
 }
 .navbar .nav-links ul li a {
+    display: flex;
     color:black;
 }
 .navbar .nav-links ul li a:hover {
-    border-bottom: 1px solid black ;
+    transform: scale(2px);
     color: black;
     text-shadow: none;
 }
@@ -423,6 +424,18 @@ textarea {
 .btn-avis:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 10px #008000;
+}
+#login {
+    padding: 10px;
+    font-size: 1em;
+    color: #000;
+    background-color: #e9ffe4;
+    border-radius: 100px;
+    border: 0.3px solid grey;
+    box-shadow: 0 0 6px grey;
+}
+#login:hover {
+    background-color: rgba(128, 128, 128, 0.486);
 }
 @media screen and (max-width: 900px) {
 

@@ -228,17 +228,8 @@
                     `;
         
                     if (estDansServeur) {
-                        content.innerHTML += `<button id="avisBtn">Poster un avis</button><br><br>`;
-                    }
-        
                     content.innerHTML += `<button id="logout">Déconnexion</button>`;
-        
-                    if (estDansServeur) {
-                        document.getElementById("avisBtn").onclick = () => {
-                            alert("Accès autorisé");
-                        };
                     }
-        
                     document.getElementById("logout").onclick = () => {
                         localStorage.removeItem("discord_token");
                         location.reload();
@@ -268,17 +259,20 @@
         }
     </script>
     <script>
-        let isConnected = false; // État initial
+        let isConnected = false; 
 
          const loginbtn = document.getElementById('login');
 
-        loginbtn.addEventListener('click', () => {
-            isConnected = true; 
-
-            if (isConnected) {
-                loginbtn.textContent = "Connecté"; // Changer le texte du bouton
-                loginbtn.disabled = true; // Optionnel : désactiver le bouton
-            }
+        loginBtn.addEventListener('click', () => {
+          if (!isConnected) {
+            // Processus de connexion
+            isConnected = true;
+            loginBtn.textContent = "Déconnexion"; // Change le texte
+          } else {
+            // Processus de déconnexion
+            isConnected = false;
+            loginBtn.textContent = "Se connecter"; // Reviens à se connecter
+          }
         });
     </script>
 </html>
