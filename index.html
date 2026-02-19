@@ -19,7 +19,7 @@
                     <li><a href="#home">Acceuil</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#offres">Offres</a></li>
-                    <li><a href="#contact">Rejoindre</a></li>
+                    <li id="content"><a href="#" id="login">Se connecter</a></li>
                 </ul>
                 </div>
                 <div class="burger">
@@ -189,4 +189,83 @@
         }
       });
     </script>
+    <script>
+        const CLIENT_ID = "1474022565939777536";
+        const REDIRECT_URI = "https://aimnorweb.github.io/Discord-Workshop/";
+        const SCOPES = "identify guilds";
+        const TON_GUILD_ID = "1470534484905558048";
+        
+        const content = document.getElementById("content");
+        function login() {
+            const url =
+                `https://discord.com/api/oauth2/authorize` +
+                `?client_id=${CLIENT_ID}` +
+                `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+                `&response_type=token` +
+                `&scope=${SCOPES}`;
+            window.location.href = url;
+        }
+        function checkLogin(token) {
+        
+            fetch("https://discord.com/api/users/@me", {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(res => res.json())
+            .then(user => {
+        
+                fetch("https://discord.com/api/users/@me/guilds", {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+                .then(res => res.json())
+                .then(guilds => {
+        
+                    const estDansServeur = guilds.some(g => g.id === TON_GUILD_ID);
+        
+                    content.innerHTML = `
+                        <p>Connecté : ${user.username}</p>
+                        <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" width="80"><br><br>
+                        <p>Dans le serveur : ${estDansServeur ? "Oui" : "Non"}</p>
+                    `;
+        
+                    if (estDansServeur) {
+                        content.innerHTML += `<button id="avisBtn">Poster un avis</button><br><br>`;
+                    }
+        
+                    content.innerHTML += `<button id="logout">Déconnexion</button>`;
+        
+                    if (estDansServeur) {
+                        document.getElementById("avisBtn").onclick = () => {
+                            alert("Accès autorisé");
+                        };
+                    }
+        
+                    document.getElementById("logout").onclick = () => {
+                        localStorage.removeItem("discord_token");
+                        location.reload();
+                    };
+                });
+            })
+            .catch(() => {
+                localStorage.removeItem("discord_token");
+                location.reload();
+            });
+        }
+        if (window.location.hash) {
+            const params = new URLSearchParams(window.location.hash.replace("#", "?"));
+            const token = params.get("access_token");
+        
+            if (token) {
+                localStorage.setItem("discord_token", token);
+                window.history.replaceState({}, document.title, REDIRECT_URI);
+            }
+        }
+        const savedToken = localStorage.getItem("discord_token");
+        
+        if (savedToken) {
+            checkLogin(savedToken);
+        } else {
+            document.getElementById("login").onclick = login;
+        }
+    </script>
 </html>
+        
