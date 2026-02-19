@@ -241,7 +241,6 @@
     
             // Bouton Déconnexion
             if (estDansServeur) {
-                loginbtn.innerHTML += `<a href="#" id="login">Déconnexion</a>`;
                 document.getElementById("login").onclick = () => {
                     localStorage.removeItem("discord_token");
                     updateLoginButton(false);
