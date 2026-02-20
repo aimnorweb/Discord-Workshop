@@ -155,40 +155,63 @@
       });
     
       
-      document.getElementById("submit").addEventListener("click", async () => {
-        const avis = document.getElementById("avis").value.trim();
-        if (!avis) {
-          alert("Écris un avis !");
-          return;
-        }
-    
-        const webhookURL = "https://discord.com/api/webhooks/1473793664672076074/_BZeYL8dd0EOrlpsVjKjBd8yQGDADAaYreuu5ut7WWq_cIP8uSSIrddmbbmrp19XdVga";
-    
-        try {
-          await fetch(webhookURL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              embeds: [{
-                title: "⭐ Nouvel avis client",
-                color: 5763719,
-                fields: [
-                  { name: "Note", value: `${rating}/5`, inline: true },
-                  { name: "Message", value: avis }
-                ],
-                timestamp: new Date()
-              }]
-            })
-          });
-          alert("Avis envoyé !");
-          document.getElementById("avis").value = "";
-          stars.forEach(s => s.style.color = "#ccc");
-          rating = 0;
-        } catch (err) {
-          alert("Erreur lors de l'envoi !");
-          console.error(err);
-        }
-      });
+        document.getElementById("submit").addEventListener("click", async () => {
+          const avis = document.getElementById("avis").value.trim();
+        
+          if (!avis) {
+            alert("Écris un avis !");
+            return;
+          }
+        
+          if (rating === 0) {
+            alert("Choisis une note !");
+            return;
+          }
+        
+          const storedUser = JSON.parse(localStorage.getItem("discord_user"));
+        
+          if (!storedUser) {
+            alert("Tu dois être connecté pour laisser un avis !");
+            return;
+          }
+        
+          const username = storedUser.global_name || storedUser.username;
+        
+          const avatarURL = storedUser.avatar
+            ? `https://cdn.discordapp.com/avatars/${storedUser.id}/${storedUser.avatar}.png`
+            : null;
+        
+          const webhookURL = "https://discord.com/api/webhooks/1473793664672076074/_BZeYL8dd0EOrlpsVjKjBd8yQGDADAaYreuu5ut7WWq_cIP8uSSIrddmbbmrp19XdVga";
+        
+          try {
+            await fetch(webhookURL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                embeds: [{
+                  title: "⭐ Nouvel avis client",
+                  color: 5763719,
+                  thumbnail: avatarURL ? { url: avatarURL } : undefined,
+                  fields: [
+                    { name: "Utilisateur", value: username, inline: true },
+                    { name: "Note", value: `${rating}/5`, inline: true },
+                    { name: "Message", value: avis }
+                  ],
+                  timestamp: new Date().toISOString()
+                }]
+              })
+            });
+        
+            alert("Avis envoyé !");
+            document.getElementById("avis").value = "";
+            stars.forEach(s => s.style.color = "#ccc");
+            rating = 0;
+        
+          } catch (err) {
+            alert("Erreur lors de l'envoi !");
+            console.error(err);
+          }
+        });
     </script>
     <script>
     const CLIENT_ID = "1474022565939777536";
@@ -222,6 +245,7 @@
                 headers: { Authorization: `Bearer ${token}` }
             });
             const user = await resUser.json();
+            localStorage.setItem("discord_user", JSON.stringify(user));
     
             const resGuilds = await fetch("https://discord.com/api/users/@me/guilds", {
                 headers: { Authorization: `Bearer ${token}` }
@@ -233,9 +257,7 @@
     
             content.innerHTML = `
                 <img src="https://cdn.discordapp.com/banners/${user.id}/${user.banner}.${extension}" width="240"><br>
-                <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}" width="80">
-                <p>Connecté : ${user.username}</p>
-                <p>Dans le serveur : ${estDansServeur ? "Oui" : "Non"}</p>
+                <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}" width="80"> <p>Utilisateur : ${user.username}</p><br><p>Dans le serveur : ${estDansServeur ? "Oui" : "Non"}</p>
             `;
     
             updateLoginButton(true);
